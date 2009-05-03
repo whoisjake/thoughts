@@ -15,3 +15,9 @@ $LOAD_PATH.unshift File.dirname(__FILE__) + "/../models"
 %w[blog post comment tag tagging user].each do |model|
   require model
 end
+
+class Fixnum
+  def pad
+    self.to_s.length == 1 ? "0#{self}" : self.to_s
+  end
+end

@@ -2,9 +2,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 describe User do
   
-  before do
-    @blog = Blog.new :title => "My Blog", :tagline => "My Tagline"
+  before(:all) do
+    Blog.delete
+    @blog = Blog.new :title => "My Blog", :tagline => "My Tagline", :permalink => "/:year/:month/:day/:title"
     @blog.save
+  end
+  
+  before(:each) do
     @user = User.new
     User.delete
   end
@@ -32,7 +36,7 @@ describe User do
     @user.blog = @blog
     @user.save
     
-    @blog.users.should include @user
+    @blog.users.should include(@user)
     @user.blog.should == @blog
   end
 

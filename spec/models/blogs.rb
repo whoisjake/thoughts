@@ -2,17 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 describe Blog do
   
-  before do
-    @blog = Blog.new
+  before(:each) do
     Blog.delete
+    @blog = Blog.new
   end
   
-  it "can set a title and tagline." do
+  it "can set values." do
     @blog.title = "My test blog title"
     @blog.tagline = "My test blog tagline"
   end
   
-  it "can save itself." do
+  it "can be saved." do
     @blog.title = "My awesome saving blog"
     @blog.tagline = "My awesome saving blog tagline"
     @blog.save

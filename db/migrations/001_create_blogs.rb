@@ -5,6 +5,7 @@ class CreateBlogs < Sequel::Migration
       primary_key :id, :type => :Integer
       String :title
       String :tagline
+      String :permalink
     end
     
     @db[:blogs].insert(:title => "My Awesome Blog", :tagline => "The best blog in the whole wide world.")

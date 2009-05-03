@@ -17,3 +17,9 @@ configure do
 end
 
 layout 'layout'
+
+class Fixnum
+  def pad
+    self.to_s.length == 1 ? "0#{self}" : self.to_s
+  end
+end

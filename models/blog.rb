@@ -4,4 +4,5 @@ class Blog < Sequel::Model
   def self.default
     Blog.first
   end
+  
 end
