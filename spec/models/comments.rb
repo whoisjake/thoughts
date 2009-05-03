@@ -2,9 +2,47 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 describe Comment do
   
-  before do
+  before(:all) do
+    Blog.delete
+    @blog = Blog.create :title => "My Blog", :tagline => "My Tagline", :permalink => "/:year/:month/:day/:title"
+    @blog.save
+    @user = User.create :blog => @blog, :username => "jake", :raw_password => "password"
+  end
+  
+  before(:each) do
+    Post.delete
+    @post = Post.create :title => "My Test Post", :body => "Test Post Body", :user => @user
     @comment = Comment.new
-    Comment.delete
+    @comment.post = @post
+  end
+  
+  it "can set values." do
+    @comment.body = "My comment"
+    @comment.name = "Jake"
+    @comment.email = "jake@whoisjake.com"
+    @comment.ip_address = "127.0.0.1"
+    @comment.website = "http://thoughtstoblog.com"
+  end
+  
+  it "can be saved." do
+    @comment.body = "My comment"
+    @comment.name = "Jake"
+    @comment.email = "jake@whoisjake.com"
+    @comment.ip_address = "127.0.0.1"
+    @comment.website = "http://thoughtstoblog.com"
+    @comment.save
+    
+    @post.comments.should include(@comment)
+  end
+  
+  it "can be spam filtered" do
+    @comment.body = "My comment"
+    @comment.name = "Jake"
+    @comment.email = "jake@whoisjake.com"
+    @comment.ip_address = "127.0.0.1"
+    @comment.website = "http://thoughtstoblog.com"
+    @comment.splam?.should == false
+    @comment.splam_score.should < 40
   end
 
 end
