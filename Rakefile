@@ -1,3 +1,4 @@
+
 namespace :db do
   
   desc "Creates the default database" 
@@ -6,6 +7,7 @@ namespace :db do
     Sequel::Migrator.apply(db, 'db/migrations')
   end
   
+  desc "[WARNING] Clears the database. Drops all tables and data."
   task :clear do
     db = load_sequel
     print "Are you sure you want to clear? [Y]: "
@@ -25,6 +27,11 @@ namespace :db do
     Sequel::Migrator.apply(db, 'db/migrations')
   end
   
+end
+
+require 'spec/rake/spectask'
+Spec::Rake::SpecTask.new do |t|
+  t.spec_files = FileList['spec/**/*.rb']
 end
 
 def load_sequel
