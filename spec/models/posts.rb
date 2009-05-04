@@ -25,18 +25,26 @@ describe Post do
     @post.title = "My Post Title"
     @post.body = "My Post Body"
     @post.user = @user
-    @post.permalink = "/my/perma/link"
     @post.save
+    
+    @post.published_at.should be_nil
+    @post.permalink.should be_nil
+    @post.created_at.should be_close(Time.now.utc, 3)
   end
   
   it "creates a correct permalink." do
     @post.title = "My Post Title"
     @post.body = "Test Body"
     @post.user = @user
+    @post.publish!
     @post.save
     
-    created_at = @post.created_at
-    @post.permalink.should == "/#{created_at.year}/#{created_at.month.pad}/#{created_at.day.pad}/my-post-title"
+    @post.published_at.should_not be_nil
+    @post.permalink.should_not be_nil
+    @post.published_at.should be_close(Time.now.utc, 3)
+    
+    published_at = @post.published_at
+    @post.permalink.should == "/#{published_at.year}/#{published_at.month.pad}/#{published_at.day.pad}/my-post-title"
   end
 
 end

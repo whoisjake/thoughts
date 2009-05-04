@@ -6,8 +6,9 @@ class CreateUsers < Sequel::Migration
       foreign_key :blog_id, :blogs, :type => :Integer
       String :username
       String :password
-      String :salt
       String :email
+      TrueClass :email_updates, :default => true
+      String :salt
     end
   end
   

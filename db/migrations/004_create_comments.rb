@@ -8,6 +8,7 @@ class CreateComments < Sequel::Migration
       String :website
       String :email
       String :body
+      TrueClass :published, :default => true
       DateTime :created_at
       String :ip_address
     end

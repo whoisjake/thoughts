@@ -16,6 +16,8 @@ describe User do
   it "can set values." do
     @user.username = "jake"
     @user.raw_password = "my_raw_password"
+    @user.email = "jake@whoisjake.com"
+    @user.email_updates = true
     @user.salt = "salt of the land"
     @user.password = "crypted password"
   end
@@ -23,6 +25,7 @@ describe User do
   it "can be saved." do
     @user.username = "jake"
     @user.raw_password = "my_raw_password"
+    @user.email = "jake@whoisjake.com"
     @user.should_receive(:encrypt_password)
     @user.save
   end

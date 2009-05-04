@@ -6,6 +6,8 @@ class CreatePosts < Sequel::Migration
       String :title
       String :body
       DateTime :created_at
+      DateTime :published_at
+      TrueClass :published
       foreign_key :user_id, :users, :type => :Integer
       String :permalink
     end

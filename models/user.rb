@@ -9,6 +9,10 @@ class User < Sequel::Model
     encrypt_password
   end
   
+  def to_s
+    self.username
+  end
+  
   private
   
   def encrypt_password

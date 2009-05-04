@@ -8,7 +8,7 @@ class CreateBlogs < Sequel::Migration
       String :permalink
     end
     
-    @db[:blogs].insert(:title => "My Awesome Blog", :tagline => "The best blog in the whole wide world.")
+    @db[:blogs].insert(:title => "My Awesome Blog", :tagline => "The best blog in the whole wide world.", :permalink => "/:year/:month/:day/:title")
   end
   
   def down
