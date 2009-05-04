@@ -7,4 +7,9 @@ class Comment < Sequel::Model
     splam.rules = [:bad_words, :html, :bbcode, :href, :chinese, :line_length, :russian]
   end
   
+  def before_save
+    return false if super == false
+    self.published = !self.spam?
+  end
+  
 end
