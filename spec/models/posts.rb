@@ -44,7 +44,7 @@ describe Post do
     @post.published_at.should be_close(Time.now.utc, 3)
     
     published_at = @post.published_at
-    @post.permalink.should == "/#{published_at.year}/#{published_at.month.pad}/#{published_at.day.pad}/my-post-title"
+    @post.permalink.should == "/#{published_at.year}/#{Post.pad(published_at.month)}/#{Post.pad(published_at.day)}/my-post-title"
   end
 
 end

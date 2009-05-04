@@ -21,8 +21,8 @@ class Post < Sequel::Model
   def self.create_permalink(title, published_at)
     permalink = Blog.default.permalink.gsub(/:year/, published_at.year.to_s)
     
-    permalink.gsub!(/:month/, published_at.month.pad)
-    permalink.gsub!(/:day/, published_at.day.pad)
+    permalink.gsub!(/:month/, Post.pad(published_at.month))
+    permalink.gsub!(/:day/, Post.pad(published_at.day))
 
     title.gsub!(/\W+/, ' ')
     title.strip!
@@ -31,6 +31,10 @@ class Post < Sequel::Model
     permalink.gsub!(/:title/,title)
     
     permalink
+  end
+  
+  def self.pad(number)
+    number.to_s.length == 1 ? "0#{number}" : number.to_s
   end
   
 end
