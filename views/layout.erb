@@ -1,26 +1,42 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title><%= @title || @blog.title %></title>
-  <link href="/stylesheets/master.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<title><%= @title || @blog.title %></title>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
 </head>
 <body>
-	<div id="header">
-	  <div>
-	    <h1><a href="/"><%= @blog.title %></a></h1>
-	    <p>by <%= @blog.tagline %></p>
-	  </div>
-	</div>
- 
-	<div id="content">
-	  <%= yield %>
-	</div>
- 
-	<div id="footer" class="container">
-		<span class="copyright">&copy; 2009 <%= @blog.users.join(",") %> - Powered by Sinatra, Sequel, Maruku, and Splam</span>	
+	<div id="doc4" class="yui-t2">
+		<div id="hd" role="banner">
+			<h1><%= @blog.title %> - <%= @blog.tagline %></h1>
+		</div>
+		<div id="bd" role="main">
+			<div id="yui-main">
+				<div class="yui-b">    
+					<div class="yui-gb">
+						<div class="yui-u first">
+							First Box
+						</div>
+						<div class="yui-u">
+							Second Box
+						</div>
+						<div class="yui-u">
+							Third Box
+						</div>
+					</div>
+					<div class="yui-g">
+						Posts
+					</div>
+				</div>
+			</div>
+			<div class="yui-b">
+				Navigation
+			</div>
+		</div>
+		<div id="ft" role="contentinfo">
+			<p>&copy; 2009 <%= @blog.users.join(",") %> - Powered by Sinatra, Sequel, Maruku, and Splam.</p>
+		</div>
 	</div>
 </body>
 </html>
+

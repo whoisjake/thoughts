@@ -3,6 +3,14 @@ namespace :db do
   
   desc "Creates the default database" 
   task :init do
+    
+    # Ensure that sqlite3 file is there
+    unless File.exist?('db/blog.db')
+      require 'sqlite3'
+      db = SQLite3::Database.new('db/blog.db')
+      db.close
+    end
+     
     db = load_sequel
     Sequel::Migrator.apply(db, 'db/migrations')
   end
