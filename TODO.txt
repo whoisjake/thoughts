@@ -1,0 +1,13 @@
+* User authentication and session on /admin
+* Default theme
+* Validations on models
+* More RSpec tests for models
+* Create RSpec tests for routes
+* Create comments functional
+* Admin Comment list
+* Admin Post list
+* Edit post
+* Edit comment
+* Caching
+* Test for vulnerabilities
+* Finish hemingway theme port
