@@ -1,1 +1,87 @@
-POST!
+<div id="primary" class="single-post">
+	<div class="inside">
+		<div class="primary">
+			<h1><%= @post.title %></h1>
+			<%= @post.body %>
+		</div>
+		<hr class="hide" />
+		<div class="secondary">
+			<h2>About this entry</h2>
+			<div class="featured">
+				<p>You&rsquo;re currently reading &ldquo;<%= @post.title %>,&rdquo; an entry on <%= @blog.title %>></p>
+				<dl>
+					<dt>Published:</dt>
+					<dd><%= @post.published_at.strftime("%I:%M%p on %m/%d/%Y") %></dd>
+				</dl>
+				<dl>
+					<dt>Tags:</dt>
+					<dd><%= @post.tags.join(", ") %></dd>
+				</dl>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<hr class="hide" />
+<div id="secondary">
+	<div class="inside">
+		<div class="comment-head">
+			<h2>(<%= @post.comments.size %>) Comments</h2>
+			<span class="details"><a href="#comment-form">Jump to comment form</a></span>
+		</div>
+		
+		<ol id="comments" class="commentlist">
+
+		<% @post.comments.each do |comment| %>
+			<li id="comment-<%= comment.id %>">
+				<cite>
+					<span class="author"><a href="<%= comment.website %>"><%= comment.name %></a></span>
+					<span class="date"><%= comment.created_at.strftime("%I:%M%p on %m/%d/%Y") %></span>
+				</cite>
+				<div class="content">
+					<%= comment.body%>
+				</div>
+				<div class="clear"></div>
+			</li>
+		<% end %>
+
+		</ol>
+		
+		<div id="comment-form">
+			<h3 class="formhead">Have your say</h3>
+			<p><small><strong>HTML is not allowed</strong></small></p>
+			<form action="<%= @post.permalink %>/comments" method="post" id="commentform">
+				<input type="text" name="comment[name]" id="author" class="textfield" tabindex="1" />
+				<label class="text">Name</label><br />
+				<input type="text" name="comment[email]" id="email" class="textfield" tabindex="2" /><label class="text">Email</label><br />
+				<input type="text" name="comment[website]" id="url" class="textfield" tabindex="3" /><label class="text">Website</label><br />
+				<textarea name="comment[body]" id="comment" class="commentbox" tabindex="4"></textarea>
+				<div class="formactions">
+					<span style="visibility:hidden">Safari hates me</span>
+					<input type="submit" name="submit" tabindex="5" class="submit" value="Add your comment" />
+				</div>
+			</form>
+		</div>
+			
+	</div>
+</div>
+
+<hr class="hide" />
+<div id="ancillary">
+	<div class="inside">
+		<div class="block first">
+			first
+		</div>
+		
+		<div class="block">
+			second
+		</div>
+		
+		<div class="block">
+			third
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+</div>

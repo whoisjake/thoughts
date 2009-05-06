@@ -15,6 +15,34 @@ namespace :db do
     Sequel::Migrator.apply(db, 'db/migrations')
   end
   
+  desc "Creates a default user"
+  task :create_user do
+    db = load_sequel
+    
+    $LOAD_PATH.unshift File.dirname(__FILE__) + "/models/"
+    require 'user'
+    require 'blog'
+    
+    user = User.new
+    
+    print "login: "
+    user.username = STDIN.gets.chomp
+    
+    print "password: "
+    user.password = STDIN.gets.chomp
+    
+    print "email: "
+    user.email = STDIN.gets.chomp
+    
+    user.blog = Blog.default
+    
+    if user.save
+      puts "User created."
+    else
+      puts "User not created."
+    end
+  end
+  
   desc "[WARNING] Clears the database. Drops all tables and data."
   task :clear do
     db = load_sequel
