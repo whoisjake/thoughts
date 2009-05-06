@@ -9,6 +9,30 @@ class Post < Sequel::Model
     self.created_at = Time.now.utc
   end
   
+  def after_save
+    return false if super == false
+    
+    # create tags
+    self.taggings_dataset.delete
+    
+    self.tags.each do |new_tag|
+      tag = Tag.filter(:name => new_tag.downcase).first
+      if tag.nil?
+        tag = Tag.create(:name => new_tag)
+      end
+      Tagging.create(:tag => tag, :post => self)
+    end
+    
+  end
+  
+  def tags=(value)
+    @tag_list = value.split(",").map{ |name| name.gsub(/[^\w\s_-]/i,"").strip.downcase }.uniq.sort
+  end
+  
+  def tags
+    @tag_list ||= self.taggings.collect{|tagging| tagging.tag.name }.sort
+  end
+  
   def publish!
     # Set published
     self.published = true

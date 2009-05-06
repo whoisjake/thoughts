@@ -4,6 +4,6 @@ class Tag < Sequel::Model
   
   def before_save
     return false if super == false
-    self.name = self.name.downcase
+    self.name = self.name.downcase.gsub(" ", "-")
   end
 end

@@ -1,1 +1,9 @@
-POSTS!
+<% @posts.each do |post| %>
+<div>
+	<h3><%= post.title %></h3>
+	<div>
+		<%= post.body %>
+	</div>
+	<p>Posted on <%= post.published_at.strfmttime("") %> by <%= post.user.login %> - (<%= post.comments.count %>) Comments</p>
+</div>
+<% end %>

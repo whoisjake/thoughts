@@ -2,25 +2,44 @@ before do
   @blog = Blog.default
 end
 
+error do
+  'Sorry there was a nasty error - ' + env['sinatra.error'].name
+end
+
+helpers do
+  def redirect_to(url)
+    redirect url
+  end
+end
+
+
 get '/admin' do
-  # show activity
   erb :admin
 end
 
 get '/admin/posts' do
   # show posts
-  @posts = Post.filter(:published => true).order(:published_at.desc).limit(10)
+  @posts = Post.all.order(:created_at.desc).limit(10)
   erb :admin_posts
+end
+
+get '/admin/posts/new' do
+  erb :admin_new
 end
 
 get '/admin/posts/:id' do
   @post = Post[params[:id].to_i]
   halt 404, "Post not found" unless @post
-  redirect_to "/#{@post.permalink}"
+  erb :admin_post
 end
 
 post '/admin/posts' do
   # create post
+  @post = Post.new(params[:post])
+  @post.user = Blog.default.users.first
+  @post.tags = params[:tags]
+  @post.publish! if (params[:post][:published] == "checked")
+  @post.save
   redirect_to '/admin/posts'
 end
 

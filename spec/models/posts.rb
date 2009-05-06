@@ -10,6 +10,8 @@ describe Post do
   end
   
   before(:each) do
+    Tag.delete
+    Tagging.delete
     Post.delete
     @post = Post.new
   end
@@ -45,6 +47,46 @@ describe Post do
     
     published_at = @post.published_at
     @post.permalink.should == "/#{published_at.year}/#{Post.pad(published_at.month)}/#{Post.pad(published_at.day)}/my-post-title"
+  end
+  
+  it "creates and utilizes the correct set of tags." do
+    t = Tag.create(:name => "one")
+    @post.title = "My Post Title"
+    @post.body = "Test Body"
+    @post.user = @user
+    @post.publish!
+    @post.tags = "one, two, three, THREE"
+    @post.save
+    
+    Tag.count.should == 3
+    Tagging.count.should == 3
+    
+    @post.reload
+    @post.tags.size.should == 3
+    @post.tags.should include('one')
+    @post.tags.should include('two')
+    @post.tags.should include('three')
+    
+    @post.save
+    @post.reload
+    @post.tags.size.should == 3
+    @post.tags.should include('one')
+    @post.tags.should include('two')
+    @post.tags.should include('three')
+    
+    @post.tags = "one"
+    @post.save
+    @post.reload
+    @post.tags.size.should == 1
+    @post.tags.should == ['one']
+    
+    @post.tags = "one, two"
+    @post.save
+    @post.reload
+    @post.tags.size.should == 2
+    @post.tags.should == ['one', 'two']
+    @post.tags.should include('one')
+    @post.tags.should include('two')
   end
 
 end

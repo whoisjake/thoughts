@@ -26,5 +26,11 @@ describe Tag do
     @tag.save
     @tag.name.should == "test"
   end
+  
+  it "can save with rules." do
+    @tag.name = "Test Test"
+    @tag.save
+    @tag.name.should == "test-test"
+  end
 
 end
