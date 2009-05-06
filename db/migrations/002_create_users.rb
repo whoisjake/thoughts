@@ -4,6 +4,7 @@ class CreateUsers < Sequel::Migration
     create_table :users do
       primary_key :id, :type => :Integer
       foreign_key :blog_id, :blogs, :type => :Integer
+      String :name
       String :username
       String :password
       String :email

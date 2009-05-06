@@ -5,7 +5,7 @@
 			<h3><a href="<%= post.permalink %>" rel="bookmark" title="Permanent Link to <%= post.title %>"><%= post.title %></a></h3>
 			<%= post.body %>
 			<div class="details">
-				Posted at <%= post.published_at.strftime("%I:%M%p on %m/%d/%Y") %> | <a href="<%= post.permalink %>">(<%= post.comments.size %>) Comments</a> | Tagged: <%= post.tags.join(", ") %> | <span class="read-on"><a href="<%= post.permalink %>">read on</a></span>
+				Posted at <%= post.published_at.strftime("%I:%M%p on %m/%d/%Y") %> by <%= post.user.name %> | <a href="<%= post.permalink %>">(<%= post.comments.size %>) Comments</a> | Tagged: <%= post.tags.join(", ") %> | <span class="read-on"><a href="<%= post.permalink %>">read on</a></span>
 			</div>
 		</div>
 		<% end %>

@@ -1,6 +1,13 @@
 class Blog < Sequel::Model
   one_to_many :users
   
+  def before_create
+    return false if super == false
+    self.permalink = "/:year/:month/:day/:title" if self.permalink.nil? || self.permalink.empty?
+    self.theme ||= "default" if self.theme.nil? || self.theme.empty?
+    self.external_rss_feed = nil if !self.external_rss_feed.nil? && self.external_rss_feed.empty?
+  end
+  
   def self.default
     Blog.first
   end

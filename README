@@ -1,0 +1,22 @@
+== thoughts ==
+
+A simple blog engine created by Jake Good (jake@whoisjake.com) to satisfy his personal need for a blog.
+
+It's small and compact, just requires the sinatra and sqlite3-ruby gem. Everything else is vendorized.
+
+To create an initial database:
+
+> rake db:init
+> rake create_blog
+> rake create_user
+
+
+To restart the database:
+
+> rake db:clear
+
+Then repeat the steps to initialize a database...
+
+== themes ==
+
+Themes should go in the themes subdirectory. The default theme has all of the view and layout files necessary.

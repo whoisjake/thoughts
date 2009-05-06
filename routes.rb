@@ -15,10 +15,6 @@ before do
   request.params.replace new_params
 end
 
-error do
-  'Sorry there was a nasty error - ' + env['sinatra.error'].name
-end
-
 helpers do
   def redirect_to(url)
     redirect url
@@ -29,31 +25,78 @@ helpers do
   end
   
   def comments_feed(blog)
-    '/comments'
+    '/comments/rss'
   end
 end
 
 get '/rss' do
+  @posts = Post.filter(:published => true).order(:published_at.desc).limit(10)
+  builder do |xml|
+    xml.instruct! :xml, :version => '1.0'
+    xml.rss :version => "2.0" do
+      xml.channel do
+        xml.title @blog.title
+        xml.description @blog.tagline
+        xml.link "http://#{request.host}/"
+
+        @posts.each do |post|
+          xml.item do
+            xml.title post.title
+            xml.link "http://#{request.host}/#{post.permalink}"
+            xml.description post.body
+            xml.pubDate Time.parse(post.published_at.to_s).rfc822()
+            xml.guid "http://#{request.host}/#{post.permalink}"
+            xml.tag!("dc:creator", post.user.name) if post.user
+          end
+        end
+      end
+    end
+  end
+end
+
+get '/comments/rss' do
+  @comments = Comment.filter(:published => true).order(:created_at.desc).limit(10)
+  builder do |xml|
+    xml.instruct! :xml, :version => '1.0'
+    xml.rss :version => "2.0" do
+      xml.channel do
+        xml.title "#{@blog.title} Comments"
+        xml.description @blog.tagline
+        xml.link "http://#{request.host}/"
+
+        @comments.each do |comment|
+          xml.item do
+            xml.title "Re: #{comment.post.title}"
+            xml.link "http://#{request.host}/#{comment.post.permalink}"
+            xml.description comment.body
+            xml.pubDate Time.parse(comment.created_at.to_s).rfc822()
+            xml.guid "http://#{request.host}/#{comment.post.permalink}##{comment.id}"
+            xml.tag!("dc:creator", comment.name) if comment.name
+          end
+        end
+      end
+    end
+  end
 end
 
 get '/admin' do
-  erb :admin
+  erb :admin, :layout => :admin_layout
 end
 
 get '/admin/posts' do
   # show posts
   @posts = Post.order(:created_at.desc).limit(10).all
-  erb :admin_posts
+  erb :admin_posts, :layout => :admin_layout
 end
 
 get '/admin/posts/new' do
-  erb :admin_new
+  erb :admin_new, :layout => :admin_layout
 end
 
 get '/admin/posts/:id' do
   @post = Post[params[:id].to_i]
   halt 404, "Post not found" unless @post
-  erb :admin_post
+  erb :admin_post, :layout => :admin_layout
 end
 
 post '/admin/posts' do
@@ -85,13 +128,13 @@ end
 get '/admin/comments' do
   # show comments
   @comments = Comment.all.order(:created_at.desc).limit(10)
-  erb :admin_comments
+  erb :admin_comments, :layout => :admin_layout
 end
 
 get '/admin/comments/:id' do
   @comment = Comment[params[:id].to_i]
   halt 404, "Comment not found" unless @comment
-  erb :admin_comment
+  erb :admin_comment, :layout => :admin_layout
 end
 
 put '/admin/comments/:id' do

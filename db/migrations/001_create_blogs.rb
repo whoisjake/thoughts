@@ -7,9 +7,9 @@ class CreateBlogs < Sequel::Migration
       String :tagline
       String :permalink
       String :external_rss_feed
+      String :theme
     end
     
-    @db[:blogs].insert(:title => "My Awesome Blog", :tagline => "The best blog in the whole wide world.", :permalink => "/:year/:month/:day/:title")
   end
   
   def down
