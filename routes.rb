@@ -15,6 +15,10 @@ before do
   request.params.replace new_params
 end
 
+not_found do
+  erb :four_oh_four
+end
+
 helpers do
   def redirect_to(url)
     redirect url
@@ -160,6 +164,17 @@ end
 get '/' do
   @posts = Post.filter(:published => true).order(:published_at.desc).limit(10)
   erb :posts
+end
+
+get '/tags' do
+  @tags = Tag.all
+  erb :tags
+end
+
+get %r{\A\/tags\/([\w]+)\z} do
+  tag = params[:captures][0]
+  @posts =
+  erb :archive
 end
 
 get %r{\A\/([0-9]{4})\/?\z} do
