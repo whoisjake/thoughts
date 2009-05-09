@@ -31,6 +31,10 @@ helpers do
   def comments_feed(blog)
     '/comments/rss'
   end
+  
+  def h(content)
+    ERB::Util::h(content)
+  end
 end
 
 get '/rss' do
@@ -47,7 +51,7 @@ get '/rss' do
           xml.item do
             xml.title post.title
             xml.link "http://#{request.host}/#{post.permalink}"
-            xml.description post.body
+            xml.description post.body.to_html
             xml.pubDate Time.parse(post.published_at.to_s).rfc822()
             xml.guid "http://#{request.host}/#{post.permalink}"
             xml.tag!("dc:creator", post.user.name) if post.user
@@ -110,7 +114,6 @@ post '/admin/posts' do
   @post.tags = params["tags"]
   @post.publish! if (params["post"]["published"] == "published")
   @post.save
-  puts @post.inspect
   redirect_to '/admin/posts'
 end
 
@@ -163,6 +166,7 @@ end
 
 get '/' do
   @posts = Post.filter(:published => true).order(:published_at.desc).limit(10)
+  @posts.each {|p| puts p.body + " " + p.to_html }
   erb :posts
 end
 
@@ -210,7 +214,6 @@ post '*/comments' do
 end
 
 get '*' do
-  puts "#{params[:splat][0]}"
   @post = Post.filter('published = ? AND permalink = ?', true, params[:splat][0]).first
   halt 404, "Post not found" unless @post
   erb :post

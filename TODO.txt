@@ -4,10 +4,14 @@
 * More RSpec tests for models
 * Create RSpec tests for routes
 * Create comments functional
-* Admin Comment list
-* Admin Post list
+* Admin Comment list with pagination
+* Admin Post list with pagination
 * Edit post
 * Edit comment
+* Delete post
+* Delete comment
 * Caching
 * Test for vulnerabilities
 * Finish hemingway theme port
+* Fill out 404
+* Create error page

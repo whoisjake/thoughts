@@ -25,6 +25,10 @@ class Post < Sequel::Model
     
   end
   
+  def to_html
+    Maruku.new(self.body).to_html
+  end
+  
   def tags=(value)
     @tag_list = value.split(",").map{ |name| name.gsub(/[^\w\s_-]/i,"").strip.downcase }.uniq.sort
   end
@@ -48,11 +52,11 @@ class Post < Sequel::Model
     permalink.gsub!(/:month/, Post.pad(published_at.month))
     permalink.gsub!(/:day/, Post.pad(published_at.day))
 
-    title.gsub!(/\W+/, ' ')
-    title.strip!
-    title.downcase!
-    title.gsub!(/\ +/, '-')
-    permalink.gsub!(/:title/,title)
+    subtitle = title.gsub(/\W+/, ' ')
+    subtitle.strip!
+    subtitle.downcase!
+    subtitle.gsub!(/\ +/, '-')
+    permalink.gsub!(/:title/,subtitle)
     
     permalink
   end

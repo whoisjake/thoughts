@@ -1,14 +1,14 @@
 <div id="primary" class="single-post">
 	<div class="inside">
 		<div class="primary">
-			<h1><%= @post.title %></h1>
-			<%= @post.body %>
+			<h1><%= h(@post.title) %></h1>
+			<%= @post.to_html %>
 		</div>
 		<hr class="hide" />
 		<div class="secondary">
 			<h2>About this entry</h2>
 			<div class="featured">
-				<p>You&rsquo;re currently reading &ldquo;<%= @post.title %>,&rdquo; an entry on <%= @blog.title %>></p>
+				<p>You&rsquo;re currently reading &ldquo;<%= h(@post.title) %>,&rdquo; an entry on <%= h(@blog.title) %>></p>
 				<dl>
 					<dt>Published:</dt>
 					<dd><%= @post.published_at.strftime("%I:%M%p on %m/%d/%Y") %></dd>
@@ -36,11 +36,11 @@
 		<% @post.comments.each do |comment| %>
 			<li id="comment-<%= comment.id %>">
 				<cite>
-					<span class="author"><a href="<%= comment.website %>"><%= comment.name %></a></span>
+					<span class="author"><a href="<%= comment.website %>"><%= h(comment.name) %></a></span>
 					<span class="date"><%= comment.created_at.strftime("%I:%M%p on %m/%d/%Y") %></span>
 				</cite>
 				<div class="content">
-					<%= comment.body%>
+					<%= h(comment.body) %>
 				</div>
 				<div class="clear"></div>
 			</li>

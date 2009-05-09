@@ -14,8 +14,10 @@ configure do
     require "models/#{model}"
   end
   
-  set :public, File.dirname(__FILE__) + '/themes/' + Blog.default.theme + '/public'
-  set :views, File.dirname(__FILE__) + '/themes/' + Blog.default.theme + '/views'
+  if Blog.default
+    set :public, 'themes/' + Blog.default.theme + '/public'
+    set :views, 'themes/' + Blog.default.theme + '/views'
+  end
 
 end
 

@@ -88,5 +88,13 @@ describe Post do
     @post.tags.should include('one')
     @post.tags.should include('two')
   end
+  
+  it "should create valid HTML using Markdown" do
+    @post.title = "Test Markdown Post"
+    body = "[Test Link][1]\n\n[1]: http://testlink.com \"Test Link\""
+    @post.body = body
+    @post.user = @user
+    @post.to_html.should == "<p><a href='http://testlink.com' title='Test Link'>Test Link</a></p>".strip
+  end
 
 end
