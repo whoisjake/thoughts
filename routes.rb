@@ -39,21 +39,22 @@ end
 
 get '/rss' do
   @posts = Post.filter(:published => true).order(:published_at.desc).limit(10)
+  content_type 'application/xml', :charset => 'utf-8'
   builder do |xml|
     xml.instruct! :xml, :version => '1.0'
     xml.rss :version => "2.0" do
       xml.channel do
-        xml.title @blog.title
-        xml.description @blog.tagline
-        xml.link "http://#{request.host}/"
+        xml.title h(@blog.title)
+        xml.description h(@blog.tagline)
+        xml.link @blog.domain
 
         @posts.each do |post|
           xml.item do
-            xml.title post.title
-            xml.link "http://#{request.host}/#{post.permalink}"
-            xml.description post.body.to_html
+            xml.title h(post.title)
+            xml.link "#{@blog.domain}/#{post.permalink}"
+            xml.description post.to_html
             xml.pubDate Time.parse(post.published_at.to_s).rfc822()
-            xml.guid "http://#{request.host}/#{post.permalink}"
+            xml.guid "#{@blog.domain}/#{post.permalink}"
             xml.tag!("dc:creator", post.user.name) if post.user
           end
         end
@@ -64,22 +65,23 @@ end
 
 get '/comments/rss' do
   @comments = Comment.filter(:published => true).order(:created_at.desc).limit(10)
+  content_type 'application/xml', :charset => 'utf-8'
   builder do |xml|
     xml.instruct! :xml, :version => '1.0'
     xml.rss :version => "2.0" do
       xml.channel do
-        xml.title "#{@blog.title} Comments"
-        xml.description @blog.tagline
-        xml.link "http://#{request.host}/"
+        xml.title "#{h(@blog.title)} Comments"
+        xml.description h(@blog.tagline)
+        xml.link @blog.domain
 
         @comments.each do |comment|
           xml.item do
-            xml.title "Re: #{comment.post.title}"
-            xml.link "http://#{request.host}/#{comment.post.permalink}"
-            xml.description comment.body
+            xml.title "Re: #{h(comment.post.title)}"
+            xml.link "#{@blog.domain}/#{comment.post.permalink}"
+            xml.description h(comment.body)
             xml.pubDate Time.parse(comment.created_at.to_s).rfc822()
-            xml.guid "http://#{request.host}/#{comment.post.permalink}##{comment.id}"
-            xml.tag!("dc:creator", comment.name) if comment.name
+            xml.guid "#{@blog.domain}/#{comment.post.permalink}##{comment.id}"
+            xml.tag!("dc:creator", h(comment.name)) if comment.name
           end
         end
       end
@@ -166,7 +168,6 @@ end
 
 get '/' do
   @posts = Post.filter(:published => true).order(:published_at.desc).limit(10)
-  @posts.each {|p| puts p.body + " " + p.to_html }
   erb :posts
 end
 

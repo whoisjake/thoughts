@@ -48,6 +48,9 @@ task :create_blog do
   
   blog = Blog.new
   
+  print "domain: "
+  blog.domain = STDIN.gets.chomp
+  
   print "title: "
   blog.title = STDIN.gets.chomp
   
@@ -89,7 +92,7 @@ namespace :db do
   desc "[WARNING] Clears the database. Drops all tables and data."
   task :clear do
     db = load_sequel
-    print "Are you sure you want to clear? [Y]: "
+    print "Are you sure you want to clear? [N]: "
     answer = STDIN.gets.chomp
     
     if answer.downcase == "y"

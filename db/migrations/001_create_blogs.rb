@@ -8,6 +8,8 @@ class CreateBlogs < Sequel::Migration
       String :permalink
       String :external_rss_feed
       String :theme
+      String :domain
+      String :secret
     end
     
   end

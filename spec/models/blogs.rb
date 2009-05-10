@@ -10,6 +10,9 @@ describe Blog do
   it "can set values." do
     @blog.title = "My test blog title"
     @blog.tagline = "My test blog tagline"
+    @blog.permalink = "test"
+    @blog.theme = "general"
+    @blog.secret = "shhh"
   end
   
   it "can be saved." do
