@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'sinatra'
 
+use Rack::Session::Cookie
+
 configure do
   
   %w[sequel maruku splam splam/rule splam/rules].each do |prereq|
@@ -8,7 +10,7 @@ configure do
     require prereq
   end
   
-  Sequel.sqlite('db/blog.db')
+  Sequel.connect('sqlite://db/blog.db')
   
   %w[blog post comment tag tagging user].each do |model|
     require "models/#{model}"
