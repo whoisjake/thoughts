@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Blog do
   
   before(:each) do
-    Blog.delete
     @blog = Blog.new
   end
   

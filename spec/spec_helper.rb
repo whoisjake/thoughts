@@ -9,5 +9,13 @@ require 'spec'
 require 'spec/interop/test'
 require 'sinatra/test'
 
-require 'sequel/extensions/migration'
+Spec::Runner.configure do |config|
+  
+  config.after(:each) do
+    db = Sequel::DATABASES.first
+    db.tables.each do |table|
+      db << "DELETE FROM #{table.to_s};"
+    end
+  end
 
+end

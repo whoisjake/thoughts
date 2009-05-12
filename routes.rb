@@ -38,7 +38,7 @@ helpers do
 end
 
 get '/rss' do
-  @posts = Post.filter(:published => true).order(:published_at.desc).limit(10)
+  @posts = Post.filter(:published => true).order(:published_at.desc).limit(15)
   content_type 'application/xml', :charset => 'utf-8'
   builder do |xml|
     xml.instruct! :xml, :version => '1.0'
@@ -64,7 +64,7 @@ get '/rss' do
 end
 
 get '/comments/rss' do
-  @comments = Comment.filter(:published => true).order(:created_at.desc).limit(10)
+  @comments = Comment.filter(:published => true).order(:created_at.desc).limit(15)
   content_type 'application/xml', :charset => 'utf-8'
   builder do |xml|
     xml.instruct! :xml, :version => '1.0'
@@ -95,7 +95,7 @@ end
 
 get '/admin/posts' do
   # show posts
-  @posts = Post.order(:created_at.desc).limit(10).all
+  @posts = Post.order(:created_at.desc).paginate(params[:page] || 1, 10)
   erb :admin_posts, :layout => :admin_layout
 end
 
@@ -136,7 +136,7 @@ end
 
 get '/admin/comments' do
   # show comments
-  @comments = Comment.all.order(:created_at.desc).limit(10)
+  @comments = Comment.all.order(:created_at.desc).paginate(params[:page] || 1, 10)
   erb :admin_comments, :layout => :admin_layout
 end
 
@@ -167,7 +167,7 @@ delete '/admin/comments/:id' do
 end
 
 get '/' do
-  @posts = Post.filter(:published => true).order(:published_at.desc).limit(10)
+  @posts = Post.filter(:published => true).order(:published_at.desc).paginate(params[:page] || 1, 10)
   erb :posts
 end
 
@@ -178,7 +178,6 @@ end
 
 get %r{\A\/tags\/([\w]+)\z} do
   tag = params[:captures][0]
-  @posts =
   erb :archive
 end
 
@@ -209,6 +208,7 @@ post '*/comments' do
   halt 404, "Post not found" unless @post
   
   @comment = Comment.new(params["comment"])
+  @comment.post = @post
   @comment.save
   
   redirect_to "#{@post.permalink}"

@@ -2,15 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
   
-  before(:all) do
-    Blog.delete
+  before(:each) do
     @blog = Blog.new :title => "My Blog", :tagline => "My Tagline", :permalink => "/:year/:month/:day/:title"
     @blog.save
-  end
-  
-  before(:each) do
     @user = User.new
-    User.delete
   end
   
   it "can set values." do

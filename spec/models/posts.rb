@@ -2,17 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Post do
   
-  before(:all) do
-    Blog.delete
+  before(:each) do
     @blog = Blog.create :title => "My Blog", :tagline => "My Tagline", :permalink => "/:year/:month/:day/:title"
     @blog.save
     @user = User.create :blog => @blog, :username => "jake", :raw_password => "password"
-  end
-  
-  before(:each) do
-    Tag.delete
-    Tagging.delete
-    Post.delete
     @post = Post.new
   end
   
