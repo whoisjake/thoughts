@@ -3,8 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe User do
   
   before(:each) do
-    @blog = Blog.new :title => "My Blog", :tagline => "My Tagline", :permalink => "/:year/:month/:day/:title"
-    @blog.save
+    @blog = Blog.create :title => "My Blog", :tagline => "My Tagline", :permalink => "/:year/:month/:day/:title"
     @user = User.new
   end
   

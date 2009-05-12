@@ -4,7 +4,6 @@ describe Tag do
   
   before(:each) do
     @blog = Blog.create :title => "My Blog", :tagline => "My Tagline", :permalink => "/:year/:month/:day/:title"
-    @blog.save
     @user = User.create :blog => @blog, :username => "jake", :raw_password => "password"
     @post = Post.new :title => "My Test Post", :body => "Test Post Body", :user => @user
     @tag = Tag.new
