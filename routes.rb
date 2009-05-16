@@ -20,6 +20,10 @@ not_found do
 end
 
 helpers do
+  def authenticate
+    # check session or redirect to login
+  end
+  
   def redirect_to(url)
     redirect url
   end
@@ -89,27 +93,54 @@ get '/comments/rss' do
   end
 end
 
+get '/admin/login' do
+  erb :login
+end
+ 
+post '/admin/login' do
+  if resp = request.env["rack.openid.response"]
+    if resp.status == :success
+      "Welcome: #{resp.display_identifier}"
+      # Save session
+    else
+      "Error: #{resp.status}"
+      # Redirect to login.
+    end
+  else
+    headers 'WWW-Authenticate' => Rack::OpenID.build_header(
+      :identifier => params["openid_identifier"]
+    )
+    throw :halt, [401, 'OpenID is required.']
+  end
+end
+
 get '/admin' do
+  authenticate
   erb :admin, :layout => :admin_layout
 end
 
 get '/admin/posts' do
+  authenticate
   # show posts
   @posts = Post.order(:created_at.desc).paginate(params[:page] || 1, 10)
   erb :admin_posts, :layout => :admin_layout
 end
 
 get '/admin/posts/new' do
+  authenticate
   erb :admin_new, :layout => :admin_layout
 end
 
 get '/admin/posts/:id' do
+  authenticate
   @post = Post[params[:id].to_i]
   halt 404, "Post not found" unless @post
   erb :admin_post, :layout => :admin_layout
 end
 
 post '/admin/posts' do
+  authenticate
+  
   # create post
   @post = Post.new(params["post"])
   @post.user = Blog.default.users.first
@@ -120,6 +151,7 @@ post '/admin/posts' do
 end
 
 put '/admin/posts/:id' do
+  authenticate
   @post = Post[params[:id].to_i]
   halt 404, "Post not found" unless @post
   @post.body = params["post"]["body"]
@@ -128,6 +160,7 @@ put '/admin/posts/:id' do
 end
 
 delete '/admin/posts/:id' do
+  authenticate
   @post = Post[params[:id].to_i]
   halt 404, "Post not found" unless @post
   @post.delete
@@ -135,18 +168,21 @@ delete '/admin/posts/:id' do
 end
 
 get '/admin/comments' do
+  authenticate
   # show comments
   @comments = Comment.all.order(:created_at.desc).paginate(params[:page] || 1, 10)
   erb :admin_comments, :layout => :admin_layout
 end
 
 get '/admin/comments/:id' do
+  authenticate
   @comment = Comment[params[:id].to_i]
   halt 404, "Comment not found" unless @comment
   erb :admin_comment, :layout => :admin_layout
 end
 
 put '/admin/comments/:id' do
+  authenticate
   @comment = Comment[params[:id].to_i]
   halt 404, "Comment not found" unless @comment
   
@@ -160,6 +196,7 @@ put '/admin/comments/:id' do
 end
 
 delete '/admin/comments/:id' do
+  authenticate
   @comment = Comment[params[:id].to_i]
   halt 404, "Comment not found" unless @comment
   @comment.delete

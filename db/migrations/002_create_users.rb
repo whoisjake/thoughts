@@ -5,11 +5,10 @@ class CreateUsers < Sequel::Migration
       primary_key :id, :type => :Integer
       foreign_key :blog_id, :blogs, :type => :Integer
       String :name
-      String :username
-      String :password
+      String :openid
       String :email
+      String :remember_me_token
       TrueClass :email_updates, :default => true
-      String :salt
     end
   end
   

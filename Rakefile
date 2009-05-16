@@ -11,11 +11,8 @@ task :create_user do
   print "name: "
   user.name = STDIN.gets.chomp
   
-  print "login: "
-  user.username = STDIN.gets.chomp
-  
-  print "password: "
-  user.password = STDIN.gets.chomp
+  print "openid: "
+  user.openid = STDIN.gets.chomp
   
   print "email: "
   user.email = STDIN.gets.chomp

@@ -8,26 +8,25 @@ describe User do
   end
   
   it "can set values." do
-    @user.username = "jake"
-    @user.raw_password = "my_raw_password"
+    @user.name = "Jake Good"
     @user.email = "jake@whoisjake.com"
     @user.email_updates = true
-    @user.salt = "salt of the land"
-    @user.password = "crypted password"
+    @user.openid = "http://whoisjake.myopenid.com"
   end
   
   it "can be saved." do
-    @user.username = "jake"
-    @user.raw_password = "my_raw_password"
+    @user.name = "Jake Good"
     @user.email = "jake@whoisjake.com"
-    @user.should_receive(:encrypt_password)
+    @user.email_updates = true
+    @user.openid = "http://whoisjake.myopenid.com"
     @user.save
   end
   
   it "can be associated to a blog." do
-    @user.username = "jake"
-    @user.raw_password = "my_raw_password"
-    @user.should_receive(:encrypt_password)
+    @user.name = "Jake Good"
+    @user.email = "jake@whoisjake.com"
+    @user.email_updates = true
+    @user.openid = "http://whoisjake.myopenid.com"
     @user.save
     
     @user.blog = @blog

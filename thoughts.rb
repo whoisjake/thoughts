@@ -1,10 +1,13 @@
 require 'rubygems'
 require 'sinatra'
 
-%w[sequel maruku splam splam/rule splam/rules].each do |prereq|
+%w[sequel maruku splam splam/rule splam/rules openid].each do |prereq|
   $LOAD_PATH.unshift File.dirname(__FILE__) + "/vendor/#{prereq}/lib"
   require prereq
 end
+
+$LOAD_PATH.unshift File.dirname(__FILE__) + "/vendor/rack-openid/lib"
+require "rack/openid"
 
 configure :test do
   db = Sequel::DATABASES.first || Sequel.connect('sqlite:/')
@@ -30,10 +33,11 @@ configure do
     set :views, 'themes/' + Blog.default.theme + '/views'
   end
   
-  use Rack::Session::Cookie,  :key => 'rack.session',
-                              :domain => Blog.default.domain,
+  use Rack::Session::Cookie,  :domain => Blog.default.domain,
                               :path => '/',
                               :secret => Blog.default.secret
+                              
+  use Rack::OpenID
                               
   require "sequel/extensions/pagination"
 end
