@@ -4,7 +4,7 @@ describe Post do
   
   before(:each) do
     @blog = Blog.create :title => "My Blog", :tagline => "My Tagline", :permalink => "/:year/:month/:day/:title"
-    @user = User.create :blog => @blog, :username => "jake", :raw_password => "password"
+    @user = User.create :blog => @blog, :openid => "http://whoisjake.myopenid.com", :name => "Jake Good"
     @post = Post.new
   end
   

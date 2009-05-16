@@ -3,7 +3,6 @@
 * Validations on models
 * More RSpec tests for models
 * Create RSpec tests for routes
-* Create comments functional
 * Admin Comment list with pagination
 * Admin Post list with pagination
 * Edit post

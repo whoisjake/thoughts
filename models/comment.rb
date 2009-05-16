@@ -10,6 +10,7 @@ class Comment < Sequel::Model
   def before_save
     return false if super == false
     self.published = !self.splam?
+    true
   end
   
 end
