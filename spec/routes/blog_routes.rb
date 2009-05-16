@@ -23,4 +23,71 @@ describe 'The thoughts App' do
     response["Content-Type"].should == "application/xml;charset=utf-8"
   end
   
+  it "displays a list of tags." do
+    get '/tags'
+    response.should be_ok
+  end
+  
+  it "displays a list of tags." do
+    get '/tags'
+    response.should be_ok
+  end
+  
+  it "displays a list of articles that have one tag." do
+    get '/tags/my_tag'
+    response.should be_ok
+  end
+  
+  it "displays archived posts" do
+    today = Time.now.utc
+    
+    get "/#{today.year}"
+    response.should be_ok
+    
+    get "/#{today.year}/#{Post.pad(today.month)}"
+    response.should be_ok
+    
+    get "/#{today.year}/#{Post.pad(today.month)}/#{Post.pad(today.day)}"
+    response.should be_ok
+  end
+  
+  it "displays a single post." do
+    today = Time.now.utc
+    post = Post.new
+    post.title = "My Blog Post"
+    post.body = "My post body."
+    post.user = @user
+    post.publish!
+    post.save
+    
+    post.permalink.should == "/#{today.year}/#{Post.pad(today.month)}/#{Post.pad(today.day)}/my-blog-post"
+    get "/#{today.year}/#{Post.pad(today.month)}/#{Post.pad(today.day)}/my-blog-post"
+    response.should be_ok
+  end
+  
+  it "can post a comment." do
+    today = Time.now.utc
+    post = Post.new
+    post.title = "My Blog Post"
+    post.body = "My post body."
+    post.user = @user
+    post.publish!
+    post.save
+    
+    get "/#{today.year}/#{Post.pad(today.month)}/#{Post.pad(today.day)}/my-blog-post"
+    response.should be_ok
+    
+    post "/#{today.year}/#{Post.pad(today.month)}/#{Post.pad(today.day)}/my-blog-post/comments", { :comment => { :name => "Jake", :body => "comment"} }
+    response.should be_redirect
+    
+    post.refresh
+    post.comments.size.should == 1
+    
+  end
+  
+  it "gives a 404" do
+    get "/some_random_url"
+    response.should be_not_found
+  end
+  
 end
