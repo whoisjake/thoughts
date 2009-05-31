@@ -11,6 +11,4 @@
 * Delete comment
 * Caching
 * Test for vulnerabilities
-* Finish hemingway theme port
-* Fill out 404
 * Create error page

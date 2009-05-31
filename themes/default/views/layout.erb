@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title><%= @title || @blog.title %></title>
+		<link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" />
+		<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<%= rss_feed(@blog) %>" />
+		<link rel="alternate" type="text/xml" title="RSS .92" href="<%= rss_feed(@blog) %>" />
+	</head>
+	<body>
+		<div id="page">
+			<div id="header">
+				<h1><a href="/"</a><%= @blog.title %></h1>
+				<p id="blog_description"><%= @blog.tagline %></p>
+			</div>
+			<hr class="hrhide" />
+			<div id="content" class="narrowcolumn">
+				<%= yield %>
+			</div>
+			<div id="sidebar">
+				<ul>
+					<li><h2>Archives</h2>
+						<ul>
+							<li>First</li>
+						</ul>
+					</li>
+
+					<li><h2>Tags</h2>
+						<ul>
+							<li>First Tag</li>
+						</ul>
+					</li>			
+				</ul>
+			</div>
+			<div id="footer">
+			</div>
+		</div>
+	</body>
+</html>

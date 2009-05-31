@@ -19,7 +19,11 @@ configure :test do
 end
 
 configure :production, :development do
-  Sequel.connect('sqlite://db/blog.db')
+  logger = Logger.new("log/#{Sinatra::Application.environment}.log")
+  Sequel.connect('sqlite://db/blog.db',:loggers => [logger])
+  set :logging, false
+  set :logger, logger
+  use Rack::CommonLogger, logger
 end
 
 configure do
@@ -33,9 +37,7 @@ configure do
     set :views, 'themes/' + Blog.default.theme + '/views'
   end
   
-  use Rack::Session::Cookie,  :domain => Blog.default.domain,
-                              :path => '/',
-                              :secret => Blog.default.secret
+  enable :sessions
                               
   use Rack::OpenID
                               
