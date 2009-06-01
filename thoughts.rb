@@ -45,4 +45,6 @@ configure do
 end
 
 layout 'layout'
-load 'routes.rb'
+load 'helpers.rb'
+load 'admin_routes.rb'
+load 'blog_routes.rb'

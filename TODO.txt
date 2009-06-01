@@ -1,4 +1,3 @@
-* User authentication and session on /admin
 * Default theme
 * Validations on models
 * More RSpec tests for models

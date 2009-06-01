@@ -1,0 +1,14 @@
+<div class="post">
+	<h2 id="post-<?php the_ID(); ?>"><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>"><?php the_title(); ?></a></h2>
+	<small><?php the_time('F jS, Y') ?> <!-- by <?php the_author() ?> --></small>
+	
+	<div class="entry">
+		<?php the_content('Read the rest of this entry &raquo;'); ?>
+	</div>
+
+	<p class="postmetadata">Posted in <?php the_category(', ') ?> <strong>|</strong> <!--<?php edit_post_link('Edit','','<strong>|</strong>'); ?>-->  <?php comments_popup_link('No Comments &#187;', '1 Comment &#187;', '% Comments &#187;'); ?></p> 
+	<hr />
+	<!--
+	<?php trackback_rdf(); ?>
+	-->
+</div>
