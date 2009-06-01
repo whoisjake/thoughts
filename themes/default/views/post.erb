@@ -1,14 +1,50 @@
-<div class="post">
-	<h2 id="post-<?php the_ID(); ?>"><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>"><?php the_title(); ?></a></h2>
-	<small><?php the_time('F jS, Y') ?> <!-- by <?php the_author() ?> --></small>
-	
-	<div class="entry">
-		<?php the_content('Read the rest of this entry &raquo;'); ?>
-	</div>
+<div id="content" class="widecolumn">
+	<div class="post" id="post-<%= @post.id %>">
+		<h2><%= @post.title %></h2>
 
-	<p class="postmetadata">Posted in <?php the_category(', ') ?> <strong>|</strong> <!--<?php edit_post_link('Edit','','<strong>|</strong>'); ?>-->  <?php comments_popup_link('No Comments &#187;', '1 Comment &#187;', '% Comments &#187;'); ?></p> 
-	<hr />
-	<!--
-	<?php trackback_rdf(); ?>
-	-->
+		<div class="entry">
+			<%= @post.to_html %>
+			<p id="tags">Tags: <%= @post.tags.join(",")%></p>
+			
+			<p class="postmetadata alt">
+				<small>
+					This entry was posted
+					on <%= @post.published_at.strftime("%B %d, %Y at %I:%M%p") %>.
+				</small>
+			</p>
+
+		</div>
+	</div>
+	
+	<h3 id="comments"><%= @post.comments.size %> Comments on &#8220;<%= @post.title %>&#8221;</h3>
+
+	<ol class="commentlist">
+		<% @post.comments.each do |comment| %>
+		<li id="comment-<%= comment.id %>" <%= () ? '' : 'class="alt"'%>>
+			<cite><?php comment_author_link() ?></cite> Says:
+			<br/>
+			<small class="commentmetadata"><a href="#comment-<%= comment.id %>" title="">comment.created_at.strftime("%B %d, %Y at %I:%M%p")</a></small>
+			<%= comment.body %>
+		</li>
+		<% end %>
+	</ol>
+	
+	<h3 id="respond">Leave a Comment</h3>
+	<p><small><strong>HTML is not allowed</strong></small></p>
+	<form action="<%= @post.permalink %>/comments" method="post" id="commentform">	
+		<p><input type="text" name="comment[name]" id="author" size="22" tabindex="1"/>
+		<label for="author"><small>Name</small></label></p>
+
+		<p><input type="text" name="comment[email]" id="email" size="22" tabindex="2"/>
+		<label for="email"><small>Email (will not be published)</small></label></p>
+
+		<p><input type="text" name="comment[website]" id="url" size="22" tabindex="3" />
+		<label for="url"><small>Website</small></label></p>
+
+		<p><textarea name="comment[body]" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+		<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+		</p>
+	</form>
+	
 </div>

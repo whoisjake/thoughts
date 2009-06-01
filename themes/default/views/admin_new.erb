@@ -1,20 +1,17 @@
-<form id="postForm" action="/admin/posts" method="POST">
-	<label for="post_title">Title</label>
-	<input type="text" name="post[title]">
-	<br/><br/>
-	<textarea name="post[body]" style="width: 500px; height: 200px;">Start writing...</textarea>
-	<br/><br/>
-	<label for="post_published">Publish?</label>
-	<input type="checkbox" name="post[published]" value="published">
-	<br/><br/>
-	<label for="post_title">Tags (comma separated)</label>
-	<input type="text" name="tags">
-	<br/><br/>
-	<input type="submit" value="Create Post"/>
-</form>
-
-<br/>
-<h2>Preview:</h2>
-<br/>
-<div class="wmd-preview"></div>
-<script type="text/javascript" src="/javascripts/wmd/wmd.js"></script>
+<div id="content" class="widecolumn">
+	<form id="postForm" action="/admin/posts" method="POST">
+	  <label for="post_title">Title</label>
+	  <input type="text" name="post[title]">
+	  <br/><br/>
+	  <textarea name="post[body]" style="width: 500px; height: 200px;"></textarea>
+	  <br/><br/>
+	  <label for="post_published">Publish?</label>
+	  <input type="checkbox" name="post[published]" value="published" checked="yes">
+	  <br/><br/>
+	  <label for="post_title">Tags (comma separated)</label>
+	  <input type="text" name="tags">
+	  <br/><br/>
+	  <input type="submit" value="Create Post"/>
+	</form>
+	<script type="text/javascript" src="/javascripts/wmd/wmd.js"></script>	
+</div>

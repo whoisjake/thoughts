@@ -16,6 +16,7 @@ before do
   request.params.replace new_params
   options.logger.info "PARAMS: #{request.params.inspect}" if options.logger && !request_for_static?
   options.logger.info "SESSION: #{session.inspect}" if options.logger && !request_for_static?
+  options.logger.info "MOBILE: #{mobile?}" if options.logger && !request_for_static?
 end
 
 not_found do
@@ -24,12 +25,41 @@ end
 
 helpers do
   
-  def get_end_day(month)
+  def mobile?
+    /(iPhone|iPod|BlackBerry|Android|Windows CE|Palm)/.match(request.env["HTTP_USER_AGENT"])
+  end
+  
+  def get_last_day(month)
     [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
   end
   
   def request_for_static?
     /(\/images|\/javascripts|\/stylesheets)/.match(request.path_info)
+  end
+  
+  def capture_and_validate_dates(date_input)
+    begin
+      if date_input[2]
+        start_date = DateTime.parse("#{date_input[0]}/#{date_input[1]}/#{date_input[2]}") 
+        end_date = DateTime.parse("#{date_input[0]}/#{date_input[1]}/#{date_input[2]}")
+      elsif date_input [1]
+        start_date = DateTime.parse("#{date_input[0]}/#{date_input[1]}/1")
+        end_date = DateTime.parse("#{date_input[0]}/#{date_input[1]}/#{get_last_day(date_input[1].to_i)}")
+      else
+        start_date = DateTime.parse("#{date_input[0]}/1/1")
+        end_date = DateTime.parse("#{date_input[0]}/12/31")
+      end
+    rescue ArgumentError
+      now = DateTime.now
+      return [DateTime.parse("#{now.year}/#{now.month}/1"),DateTime.parse("#{now.year}/#{now.month}/#{get_last_day(now.month)}")]
+    end
+    
+    [start_date, end_date]
+  end
+  
+  def filter_posts_by_date(date_input)
+    start_date, end_date = capture_and_validate_dates(date_input)
+    Post.filter({:published => true} & {:published_at => (start_date..end_date)})
   end
   
   def authenticate

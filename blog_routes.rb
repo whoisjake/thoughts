@@ -75,24 +75,18 @@ get %r{\A\/tags\/([\w]+)\z} do
 end
 
 get %r{\A\/([0-9]{4})\/?\z} do
-  start_date = DateTime.parse("#{params[:captures][0]}/1/1")
-  end_date = DateTime.parse("#{params[:captures][0]}/12/31")
-  @posts = Post.filter({:published => true} & {:published_at => (start_date..end_date)})
+  @posts = filter_posts_by_date(params[:captures])
   erb :archive
 end
 
 get %r{\A\/([0-9]{4})\/([0-9]{2})\/?\z} do
-  start_date = DateTime.parse("#{params[:captures][0]}/#{params[:captures][1]}/1")
-  end_date = DateTime.parse("#{params[:captures][0]}/#{params[:captures][1]}/#{get_end_day(params[:captures][1].to_i)}")
-  @posts = Post.filter({:published => true} & {:published_at => (start_date..end_date)})
+  @posts = filter_posts_by_date(params[:captures])
   erb :archive
 end
 
 
 get %r{\A\/([0-9]{4})\/([0-9]{2})\/([0-9]{2})\/?\z} do
-  start_date = DateTime.parse("#{params[:captures][0]}/#{params[:captures][1]}/#{params[:captures][2]}")
-  end_date = DateTime.parse("#{params[:captures][0]}/#{params[:captures][1]}/#{params[:captures][2]}")
-  @posts = Post.filter({:published => true} & {:published_at => (start_date..end_date)})
+  @posts = filter_posts_by_date(params[:captures])
   erb :archive
 end
 

@@ -1,20 +1,18 @@
-<form id="postForm" action="/admin/posts" method="POST">
-	<label for="post_title">Title</label>
-	<input type="text" name="post[title]" value="<%= @post.title %>">
-	<br/><br/>
-	<textarea name="post[body]" style="width: 500px; height: 200px;">"<%= @post.body %></textarea>
-	<br/><br/>
-	<label for="post_published">Publish?</label>
-	<input type="checkbox" name="post[published]" value="checked">
-	<br/><br/>
-	<label for="post_title">Tags (comma separated)</label>
-	<input type="text" name="tags" value="<%= @post.tags.join(",") %>">
-	<br/><br/>
-	<input type="submit" value="Update Post"/>
-</form>
-
-<br/>
-<h2>Preview:</h2>
-<br/>
-<div class="wmd-preview"></div>
-<script type="text/javascript" src="/javascripts/wmd/wmd.js"></script>
+<div id="content" class="widecolumn">
+	<form id="postForm" action="/admin/posts/<%= @post.id %>" method="PUT">
+	  <input type="hidden" name="_method" value="PUT">
+	  <label for="post_title">Title</label>
+	  <input type="text" name="post[title]" value="<%= @post.title %>">
+	  <br/><br/>
+	  <textarea name="post[body]" style="width: 500px; height: 200px;"><%= @post.body %></textarea>
+	  <br/><br/>
+	  <label for="post_published">Publish?</label>
+	  <input type="checkbox" name="post[published]" value="published" checked="<%= @post.published? ? "yes" : "no" %>">
+	  <br/><br/>
+	  <label for="post_title">Tags (comma separated)</label>
+	  <input type="text" name="tags" value="<%= @post.tags.join(",") %>">
+	  <br/><br/>
+	  <input type="submit" value="Create Post"/>
+	</form>
+	<script type="text/javascript" src="/javascripts/wmd/wmd.js"></script>
+</div>

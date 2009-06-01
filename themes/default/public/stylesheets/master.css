@@ -1,74 +1,121 @@
-/* 
-	Theme Name: White as Milk
-	Theme URI: http://www.azeemazeez.com/stuff/themes/
-	Description: A Clean, White theme for WordPress
-	Author: Azeem Azeez
-	Author URI: http://www.azeemazeez.com
-	Version: 1.6
-		
-	The CSS, XHTML and design is released under GPL:
-	http://www.opensource.org/licenses/gpl-license.php
+/*
+Theme Name: White as Milk
+Theme URI: http://www.azeemazeez.com/blogs/white-as-milk/
+Description: White as Milk is a clean template that puts focus on the content rather than the design.
+Version: 1.8
+Author: Azeem Azeez
+Author URI: http://azeemazeez.com
+Tags: blue, white, fixed width, two columns, widgets, clean
+
+	White as Milk 1.8
+	 http://www.azeemazeez.com/blogs/white-as-milk/
+  
+  White as Milk is a clean template that puts focus on the content rather than the design. The top part
+  of this stylesheet contains elements which makes it easier for designers to customize their design.
+  
+	The CSS, XHTML and design is released under GPL: http://www.opensource.org/licenses/gpl-license.php*/
+
+
+/*=-=-=-=-=-=-=-=-=-=-= BEGIN CUSTOMIZATION =-=-=-=-=-=-=-=-=-=-=*/
+
+/*Background Color of the page*/
+  body {background-color:white;}
+
+/*Body text color*/
+  body {color:#333;}
+
+/*Text color of the blog title in the header*/
+  #header h1 a {color:#3b6ea5;}
+
+/*Text color of the blog description in the header*/
+  .description {color:#333;}
+
+/*Links color*/
+  a {color:#0066CC}
+
+/*Links hover color*/
+  a:hover {color:#333}
+
+/*Headings color*/
+  .post h2 a, #sidebar h2 {color:#333;}
+
+/*Headings hover color*/
+  .post h2 a:hover {color:#0066CC;}
+
+
+/*Width of the entire page. You can
+  also use a flexible width like so:
+  #page {width:64em;}
+*/
+  #page {width:700px;}
+
+
+/*IT'S ADVISED *NOT* TO CHANGE THESE, IF POSSIBLE*/
+/*Width of the content area*/
+  #content {width: 72%;}
+
+/*Width of the sidebar*/
+  #sidebar {width:24%;}
+
+/*Position of the header from the left edge.*/
+  #headerimg {margin-left:28%;}
+
+/*Position of the footer from the left edge.*/
+  #footer p {padding-left:28%;}
+
+/*=-=-=-=-=-=-=-=-=-=-=- END CUSTOMIZATION -=-=-=-=-=-=-=-=-=-=-=*/
+
+
+
+/*
+THE FOLLOWING CODE IS DERIVED FROM THE DEFAULT "KUBRICK" THEME.
+THE STRUCTURE AND LAYOUT IS IN MY OPINION, NOT THE WAY CSS SHOULD
+BE ORGANIZED, BUT FOR NOW I AM LEAVING IT THE WAY IT IS TO KEEP
+IT CONSISTENT.
 */
 
-/* The Cow goes Baa */
-/* The structure used in this template was copied from
-the Kubrick theme that came with Wordpress 1.6 to maintain
-consistency. - Azeem Azeez */
-
 /* Begin Typography & Colors */
-html { height: 100%; margin-bottom: 1px;}
-
 body {
-
 	font-size: 62.5%; /* Resets 1em to 10px */
 	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
-
-	color: #333;
+	/*background: #fff;
+	color: #333;*/
 	text-align: center;
-	background-color:#FFFFFF;
 	}
 
 #page {
-	background-color:#FFFFFF;
 	text-align: left;
 	}
 
-#header a{
-	color: #333333;
-	}
-
-#blog_title_hide {
-	display:none;
-
-}
+#header {}
+#headerimg {}
 
 #content {
-	float:right;
-	font-size: 1.2em;
-	width:550px;
+	font-size: 1.2em
 	}
 
-.widecolumn .entry p {
+#content .entry p {
 	font-size: 1.05em;
 	}
 
-.narrowcolumn .entry, .widecolumn .entry {
+#content .entry, #content .entry {
 	line-height: 1.4em;
 	}
 
-.widecolumn {
+#content {
 	line-height: 1.6em;
 	}
-	
-.narrowcolumn .postmetadata {
-	text-align: left;
-	font-size:.8em;
-	}
+
+#content .postmetadata {}
 
 .alt {
 	background-color: #f8f8f8;
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
+	}
+
+#footer {
+	border: none;
 	}
 
 small {
@@ -82,33 +129,13 @@ h1, h2, h3 {
 	font-weight: bold;
 	}
 
-h1 {
-	font-size: 2em;
-	text-align: left;
+#header h1 {
+	font-size:3.2em;
 	}
 
-#headerimg {
-	
-}
-
-#blog_description {
-
-}
-
-#header a{
-	font-size:2em;
-	color:#3b6ea5;
-	margin-left:190px;
-}
-
-#header p {
-	margin-bottom:0px;
-	}
-	
 .description {
-	font-size: 1.2em;
-	color:#333333;
-	margin-left:190px;
+  font-size:1em;
+/*  color:#333;*/
 	}
 
 h2 {
@@ -117,6 +144,10 @@ h2 {
 
 h2.pagetitle {
 	font-size: 1.6em;
+background-color:#e7e7e7;
+border:1px solid #777;
+padding:4px 0px 4px 0px;
+margin-top:16px;
 	}
 
 #sidebar h2 {
@@ -128,12 +159,13 @@ h3 {
 	font-size: 1.3em;
 	}
 
-h1, h1 a, h1 a:hover, h1 a:visited, .description {
+h1, h1 a, h1 a:hover, h1 a:visited, #headerimg{
 	text-decoration: none;
+	color: #3b6ea5;
 	}
 
 h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited {
-	color: #333;
+	/*color: #333;*/
 	}
 
 h2, h2 a, h2 a:hover, h2 a:visited, h3, h3 a, h3 a:hover, h3 a:visited, #sidebar h2, #wp-calendar caption, cite {
@@ -147,9 +179,16 @@ h2, h2 a, h2 a:hover, h2 a:visited, h3, h3 a, h3 a:hover, h3 a:visited, #sidebar
 .commentlist li, #commentform input, #commentform textarea {
 	font: 0.9em 'Lucida Grande', Verdana, Arial, Sans-Serif;
 	}
-	
+
 .commentlist li {
 	font-weight: bold;
+	}
+
+.commentlist li .avatar { 
+	float: right;
+	border: 1px solid #eee;
+	padding: 2px;
+	background: #fff;
 	}
 
 .commentlist cite, .commentlist cite a {
@@ -177,11 +216,11 @@ h2, h2 a, h2 a:hover, h2 a:visited, h3, h3 a, h3 a:hover, h3 a:visited, #sidebar
 	}
 
 small, #sidebar ul ul li, #sidebar ul ol li, .nocomments, .postmetadata, blockquote, strike {
-	color: #777;
+	/*color: #777;*/
 	}
-	
+
 code {
-	font-size: 1.1em;
+	font: 1.1em 'Courier New', Courier, Fixed;
 	}
 
 acronym, abbr, span.caps
@@ -191,16 +230,24 @@ acronym, abbr, span.caps
 	}
 
 a, h2 a:hover, h3 a:hover {
-	color: #06c;
-	text-decoration: none;
-	}
-
-a:hover {
-	color: #147;
+/*	color: #06c;*/
 	text-decoration: underline;
 	}
-	
-#wp-calendar #prev a {
+
+#sidebar a,
+.postmetadata a,
+.navigation a,
+ol.commentlist cite a,
+.commentmetadata a {
+       text-decoration:none;
+}
+
+a:hover {
+	/*color: #147;*/
+	text-decoration: underline;
+	}
+
+#wp-calendar #prev a, #wp-calendar #next a {
 	font-size: 9pt;
 	}
 
@@ -220,88 +267,108 @@ a:hover {
 /* End Typography & Colors */
 
 
-
 /* Begin Structure */
+
+/* Always show the scrollbar */
+html {height: 100%;margin-bottom: 1px;}
+
 body {
-	margin: 0;
-	padding: 0; 
+	margin: 0 0 20px 0;
+	padding: 0;
 	}
 
 #page {
-	margin: 0px auto;
+	margin: 20px auto;
 	padding: 0;
-	width: 740px;
-	background-color:#FFFFFF;
+	min-width: 500px;
+/*	width: 760px;*/
 	}
-	
+
 #header {
+	margin: 0 0 22px 1px;
 	padding: 0;
-	margin: 0 auto;
-	width: 100%;
-	margin-bottom:30px;
 }
 
-#header h1 {
-	font-size:1.6em;
-}
-
-#header p{
-	margin-left:190px;
-	margin-top:0px;
-}
-
-.narrowcolumn {
-	float: left;
-	padding: 0 0 10px 15px;
+#content {
+	float: right;
+	padding: 0 0 20px 10px;
 	margin: 0px 0 0;
+/*	width: 550px;*/
+overflow:hidden;
 	}
 
-.widecolumn {
-	padding: 10px 0 20px 0;
-	margin: 5px 0 0 150px;
-	width: 450px;
-	}
-	
-.post h2{
-	margin: 0 0 0px;
-	text-align: justify;
-	margin:0px;
-	font-size:1.4em;
-	}
-	
-.post h2 a:hover{
-color:#3b6ea5;
+#sidebar {
+text-align:right;
+}
+
+.post {
+  border-bottom:1px solid #999;
+  padding-bottom:4px;
 	}
 
-.widecolumn .post {
-	margin: 0;
+.post h2 {
+  padding-top:14px;
+  padding-bottom:2px;
+}
+
+.post hr {
+  display: block;
+}
+
+#content .post {
+  margin: 0;
+}
+
+#content .postmetadata {
+  font-size:11px;
+padding-top:14px;
+color:#555;
+}
+
+#tags {
+font-size:11px !important;
+color:#999;
+}
+
+#content .postmetadata {
+	margin: 10px 0;
 	}
 
-.narrowcolumn .postmetadata {
-	padding-top: 5px;
-	}
+#content .smallattachment {
+	text-align: center;
+	float: left;
+	width: 128px;
+	margin: 5px 5px 5px 0px;
+}
 
-.widecolumn .postmetadata {
-	margin: 30px 0;
-	}
-	
+#content .attachment {
+	text-align: center;
+	margin: 5px 0px;
+}
+
+.postmetadata {
+	clear: both;
+}
+
+.clear {
+	clear: both;
+}
+
 #footer {
-	padding: 0 0 0 1px;
+	padding: 0;
 	margin: 0 auto;
 	width: 100%;
 	clear: both;
-	text-align:center;
 	}
 
 #footer p {
-	margin-left: 220px;
-	margin-top:0px;
-	}
+	margin: 0;
+	padding-bottom:24px;
+}
+
 /* End Structure */
 
-hr {
-	margin-left:0px;
-}
+
 
 /*	Begin Headers */
 h1 {
@@ -309,25 +376,22 @@ h1 {
 	}
 
 h2 {
-	margin: 30px 0 0;
+	margin: 0px 0 0 0;
 	}
 
 h2.pagetitle {
-	margin-top: 2px;
-	background-color:#F0F0F0;
+		text-align: center;
 }
 
 #sidebar h2 {
 	margin: 5px 0 0;
 	padding: 0;
-	text-transform:uppercase;
 	}
 
 h3 {
 	padding: 0;
 	margin: 30px 0 0;
 	}
-
 
 h3.comments {
 	padding: 0;
@@ -347,13 +411,13 @@ p img {
 	thought?!) align the image to the right. And using 'class="centered',
 	will of course center the image. This is much better than using
 	align="center", being much more futureproof (and valid) */
-	
+
 img.centered {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	}
-	
+
 img.alignright {
 	padding: 4px;
 	margin: 0 0 2px 7px;
@@ -368,12 +432,11 @@ img.alignleft {
 
 .alignright {
 	float: right;
-}
-	
-.alignleft {
-	float: left;
-}
+	}
 
+.alignleft {
+	float: left
+	}
 /* End Images */
 
 
@@ -389,7 +452,7 @@ html>body .entry ul {
 	list-style: none;
 	padding-left: 10px;
 	text-indent: -10px;
-	} 
+	}
 
 html>body .entry li {
 	margin: 7px 0 8px 10px;
@@ -414,7 +477,7 @@ html>body .entry li {
 	list-style-type: none;
 	list-style-image: none;
 	}
-	
+
 #sidebar ul, #sidebar ul ol {
 	margin: 0;
 	padding: 0;
@@ -453,13 +516,12 @@ ol li, #sidebar ul ol li {
 /* Begin Form Elements */
 #searchform {
 	margin: 10px auto;
-	padding: 5px 3px; 
-	text-align:right;
+	padding: 5px 0px 5px 3px;
 	}
 
 #sidebar #searchform #s {
-	width: 85px;
-	padding: 2px;
+	width: 108px;
+	padding: 1px;
 	}
 
 #sidebar #searchsubmit {
@@ -481,16 +543,14 @@ select {
 	}
 
 #commentform textarea {
-	width: 100%;
+	width: 98%;
 	padding: 2px;
 	}
 
 #commentform #submit {
 	margin: 0;
-	float: right;
 	}
 /* End Form Elements */
-
 
 
 
@@ -502,6 +562,7 @@ select {
 
 .commentlist {
 	padding: 0;
+margin:0px;
 	text-align: justify;
 	}
 
@@ -535,32 +596,20 @@ select {
 
 /* Begin Sidebar */
 #sidebar {
-	width:165px;
-	float:left;
-	text-align:right;
-	padding-right:4px;
+	padding: 1px 10px 10px 0;
+/*	width: 180px;*/
+margin-top:30px;
 	}
 
 #sidebar form {
 	margin: 0;
 	}
-	
-#sidebar a{
-	color:#3b6ea5;
-	}	
-	
-#pagenav {
-	margin:0px;
-}	
-	
 /* End Sidebar */
 
 
 
 /* Begin Calendar */
 #wp-calendar {
-
-
 	empty-cells: show;
 	margin: 10px auto 0;
 	width: 155px;
@@ -620,7 +669,11 @@ blockquote cite {
 	text-align: center;
 	}
 
-.hrhide {
+.hidden {
+	display: none;
+	}
+
+hr {
 	display: none;
 	}
 
@@ -631,7 +684,54 @@ a img {
 .navigation {
 	display: block;
 	text-align: center;
-	height:30px;
+	margin-top: 10px;
+  /*height:40px;*/
+  padding:2px 0px 20px 0px;
 	}
-	
+
+.navigation .alignleft{
+  padding-right:4px;}
+
 /* End Various Tags & Classes*/
+
+
+/* Captions */
+.aligncenter,
+div.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wp-caption {
+	border: 1px solid #ddd;
+	text-align: center;
+	background-color: #f3f3f3;
+	padding-top: 4px;
+	margin: 10px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.wp-caption img {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+}
+
+.wp-caption p.wp-caption-text {
+	font-size: 11px;
+	line-height: 17px;
+	padding: 0 4px 5px;
+	margin: 0;
+}
+/* End captions */
+
+
+
+/*
+  Ploo, ploo, white and blue. 
+  I do love you true.
+*/

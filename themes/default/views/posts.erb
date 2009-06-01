@@ -1,0 +1,14 @@
+<div id="content" class="narrowcolumn">
+	<% @posts.each do |post| %>
+	<div class="post" id="post-<%= post.id %>">
+		<h2><a href="<%= post.permalink %>" rel="bookmark" title="Permanent Link to <%= post.title %>"><%= post.title %></a></h2>
+		<small><%= post.published_at.strftime("%B %d, %Y") %> by <%= post.user.name %></small>
+
+		<div class="entry">
+			<%= post.to_html %>
+		</div>
+
+		<p class="postmetadata">Tags: <%= post.tags.join(",")%> <strong>|</strong><%= post.comments.size %> Comments</p> 
+	</div>
+	<% end %>
+</div>

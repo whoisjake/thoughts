@@ -5,7 +5,9 @@
 		<title><%= @title || @blog.title %></title>
 		<link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="/stylesheets/openid.css" type="text/css" media="screen" />
-		
+		<% if mobile? %>
+		<link rel="stylesheet" href="/stylesheets/mobile.css" type="text/css" media="screen" />
+		<% end %>
 		<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<%= rss_feed(@blog) %>" />
 		<link rel="alternate" type="text/xml" title="RSS .92" href="<%= rss_feed(@blog) %>" />
 		
@@ -20,13 +22,15 @@
 	<body>
 		<div id="page">
 			<div id="header">
-				<h1><a href="/"</a><%= @blog.title %></h1>
-				<p id="blog_description"><%= @blog.tagline %></p>
+				<div id="headerimg">
+					<h1><a href="/"><%= @blog.title %></a></h1>
+					<div class="description"><%= @blog.tagline %></div>
+				</div>
 			</div>
-			<hr class="hrhide" />
-			<div id="content" class="narrowcolumn">
-				<%= yield %>
-			</div>
+			<hr />
+			
+			<%= yield %>
+			
 			<div id="sidebar">
 				<ul>
 					<li><h2>Archives</h2>
@@ -42,7 +46,11 @@
 					</li>			
 				</ul>
 			</div>
+			<hr />
 			<div id="footer">
+				<p>
+					<%= @blog.title %> is powered by <a href="http://github.com/whoisjake/thoughts/tree/master">Thoughts</a> with <a href="http://www.azeemazeez.com/blogs/white-as-milk/" title="White as Milk theme for Wordpress">White as Milk</a> <br />designed by <a href="http://www.azeemazeez.com">Azeem Azeez</a>. <a href="<%= rss_feed(@blog) %>">Entries (RSS)</a> and <a href="<%= comments_feed(@blog) %>">Comments (RSS)</a>.
+				</p>
 			</div>
 		</div>
 	</body>
