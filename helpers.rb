@@ -24,6 +24,10 @@ end
 
 helpers do
   
+  def get_end_day(month)
+    [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
+  end
+  
   def request_for_static?
     /(\/images|\/javascripts|\/stylesheets)/.match(request.path_info)
   end

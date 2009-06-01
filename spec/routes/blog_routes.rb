@@ -28,14 +28,15 @@ describe 'The thoughts App' do
     response.should be_ok
   end
   
-  it "displays a list of tags." do
-    get '/tags'
+  it "displays a list of articles that have one tag." do
+    tag = Tag.create :name => "blogging"
+    get '/tags/blogging'
     response.should be_ok
   end
   
-  it "displays a list of articles that have one tag." do
+  it "displays a 404 for an unknown tag." do
     get '/tags/my_tag'
-    response.should be_ok
+    response.should be_not_found
   end
   
   it "displays archived posts" do

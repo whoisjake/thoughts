@@ -67,9 +67,11 @@ get %r{\A\/tags\/([\w]+)\z} do
   if tag
     taggings = Tagging.filter(:tag_id => tag.id).select(:post_id)
     @posts = Post.filter({:published => true} & {:id => taggings}).order(:published_at.desc)
+    erb :archive
+  else
+    halt 404, "Tag not found"
   end
-  
-  erb :archive
+
 end
 
 get %r{\A\/([0-9]{4})\/?\z} do
@@ -81,7 +83,7 @@ end
 
 get %r{\A\/([0-9]{4})\/([0-9]{2})\/?\z} do
   start_date = DateTime.parse("#{params[:captures][0]}/#{params[:captures][1]}/1")
-  end_date = DateTime.parse("#{params[:captures][0]}/#{params[:captures][1]}/31")
+  end_date = DateTime.parse("#{params[:captures][0]}/#{params[:captures][1]}/#{get_end_day(params[:captures][1].to_i)}")
   @posts = Post.filter({:published => true} & {:published_at => (start_date..end_date)})
   erb :archive
 end

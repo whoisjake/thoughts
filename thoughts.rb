@@ -42,6 +42,7 @@ configure do
   use Rack::OpenID
                               
   require "sequel/extensions/pagination"
+  
 end
 
 layout 'layout'
