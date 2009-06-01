@@ -96,6 +96,7 @@ post '*/comments' do
   
   @comment = Comment.new(params["comment"])
   @comment.post = @post
+  @comment.created_at = Time.now.utc
   @comment.save
   
   redirect_to "#{@post.permalink}"

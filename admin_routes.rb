@@ -64,6 +64,7 @@ post '/admin/posts' do
   @post = Post.new(params["post"])
   @post.user = Blog.default.users.first
   @post.tags = params["tags"]
+  @post.created_at = Time.now.utc
   @post.publish! if (params["post"]["published"] == "published")
   @post.save
   redirect_to '/admin/posts'

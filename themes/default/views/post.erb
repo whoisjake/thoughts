@@ -4,12 +4,12 @@
 
 		<div class="entry">
 			<%= @post.to_html %>
-			<p id="tags">Tags: <%= @post.tags.join(",")%></p>
-			
 			<p class="postmetadata alt">
 				<small>
 					This entry was posted
 					on <%= @post.published_at.strftime("%B %d, %Y at %I:%M%p") %>.
+					<br/>
+					Tagged with: <%= @post.tags.join(",")%>
 				</small>
 			</p>
 
@@ -21,9 +21,9 @@
 	<ol class="commentlist">
 		<% @post.comments.each do |comment| %>
 		<li id="comment-<%= comment.id %>" <%= () ? '' : 'class="alt"'%>>
-			<cite><?php comment_author_link() ?></cite> Says:
+			<cite><a href="<%= comment.website || "/" %>" target="_blank"><%= comment.name %></a></cite> Says:
 			<br/>
-			<small class="commentmetadata"><a href="#comment-<%= comment.id %>" title="">comment.created_at.strftime("%B %d, %Y at %I:%M%p")</a></small>
+			<small class="commentmetadata"><a href="#comment-<%= comment.id %>" title=""><%= comment.created_at.strftime("%B %d, %Y at %I:%M%p") %></a></small>
 			<%= comment.body %>
 		</li>
 		<% end %>
