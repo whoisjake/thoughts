@@ -19,3 +19,5 @@ Spec::Runner.configure do |config|
   end
 
 end
+
+require File.dirname(__FILE__) + '/monkey_patches'

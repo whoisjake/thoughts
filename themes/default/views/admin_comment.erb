@@ -1,3 +1,22 @@
 <div id="content" class="widecolumn">
-	
+	<h2 class="center">Edit comment</h2>
+	<form id="postForm" action="/admin/comments/<%= @comment.id %>" method="POST">
+	  <input type="hidden" name="_method" value="PUT">
+	  <label for="comment_name">Name</label><br/>
+	  <input type="text" name="comment[name]" value="<%= @comment.name %>">
+	  <br/><br/>
+	  <label for="comment_website">Website</label><br/>
+	  <input type="text" name="comment[website]" value="<%= @comment.website %>">
+	  <br/><br/>
+	  <label for="comment_email">Email</label><br/>
+	  <input type="text" name="comment[email]" value="<%= @comment.email %>">
+	  <br/><br/>
+	  <label for="comment_body">Body</label><br/>
+	  <input type="text" name="comment[body]" value="<%= @comment.body %>">
+	  <br/><br/>
+	  <label for="comment_published">Published?</label><br/>
+	  <input type="checkbox" name="comment[published]" value="published" checked="<%= @comment.published ? "yes" : "no" %>">
+	  <br/><br/>
+	  <input type="submit" value="Save Comment"/>
+	</form>
 </div>

@@ -1,0 +1,5 @@
+<ul>
+	<% Tag.all.each do |tag| %>
+	<li><a href="/tags/<%= tag.name %>"><%= tag %></a></li>
+	<% end %>
+</ul>

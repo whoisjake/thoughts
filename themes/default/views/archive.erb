@@ -1,3 +1,9 @@
 <div id="content" class="narrowcolumn">
-	<h2 class="center">ARCHIVE!</h2>
+	<h2><%= @message %></h2>
+	<% @posts.each do |post| %>
+	<div class="post" id="post-<%= post.id %>">
+		<h2><a href="<%= post.permalink %>" rel="bookmark" title="Permanent Link to <%= post.title %>"><%= post.title %></a></h2>
+		<small>Posted by <%= post.user.name %> on <%= post.published_at.strftime("%B %d, %Y") %></small> 
+	</div>
+	<% end %>
 </div>

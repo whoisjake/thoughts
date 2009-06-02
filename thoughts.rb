@@ -9,6 +9,11 @@ end
 $LOAD_PATH.unshift File.dirname(__FILE__) + "/vendor/rack-openid/lib"
 require "rack/openid"
 
+$LOAD_PATH.unshift File.dirname(__FILE__) + "/vendor/sinatra-cache/lib"
+require "sinatra/cache"
+
+require "builder"
+
 configure :test do
   db = Sequel::DATABASES.first || Sequel.connect('sqlite:/')
   
@@ -38,7 +43,7 @@ configure do
   end
   
   enable :sessions
-                              
+  set :cache_enabled, true
   use Rack::OpenID
                               
   require "sequel/extensions/pagination"
@@ -46,6 +51,6 @@ configure do
 end
 
 layout 'layout'
-load 'helpers.rb'
-load 'admin_routes.rb'
-load 'blog_routes.rb'
+load 'controllers/helpers.rb'
+load 'controllers/admin_routes.rb'
+load 'controllers/blog_routes.rb'

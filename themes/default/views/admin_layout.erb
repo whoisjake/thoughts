@@ -21,37 +21,10 @@
 	</head>
 	<body>
 		<div id="page">
-			<div id="header">
-				<div id="headerimg">
-					<h1><a href="/"><%= @blog.title %></a></h1>
-					<div class="description"><%= @blog.tagline %></div>
-				</div>
-			</div>
-			<hr />
-			
+			<%= erb(:header, :layout => false)%>
 			<%= yield %>
-			
-			<div id="sidebar">
-				<ul>
-					<li><h2>Archives</h2>
-						<ul>
-							<li>First</li>
-						</ul>
-					</li>
-
-					<li><h2>Tags</h2>
-						<ul>
-							<li>First Tag</li>
-						</ul>
-					</li>			
-				</ul>
-			</div>
-			<hr />
-			<div id="footer">
-				<p>
-					<%= @blog.title %> is powered by <a href="http://github.com/whoisjake/thoughts/tree/master">Thoughts</a> with <a href="http://www.azeemazeez.com/blogs/white-as-milk/" title="White as Milk theme for Wordpress">White as Milk</a> <br />designed by <a href="http://www.azeemazeez.com">Azeem Azeez</a>. <a href="<%= rss_feed(@blog) %>">Entries (RSS)</a> and <a href="<%= comments_feed(@blog) %>">Comments (RSS)</a>.
-				</p>
-			</div>
+			<%= erb(:sidebar, :layout => false)%>
+			<%= erb(:footer, :layout => false)%>
 		</div>
 	</body>
 </html>

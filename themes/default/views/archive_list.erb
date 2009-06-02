@@ -1,0 +1,15 @@
+<ul>
+	<% @archives[0..20].each do |archive| %>
+	<li><a href="">First</a></li>
+	<% end %>
+</ul>
+<% if @archives.length > 20 %>
+<a id="view_all_archive_link" href="#" onclick="document.getElementById('view_all_archive').style.display = 'inline'; document.getElementById('view_all_archive_link').style.display = 'none';">View all</a>
+<span id="view_all_archive" style="display: none;">
+	<ul>
+		<% @archives[20...@archives.length].each do |archive| %>
+		<li><a href="">Second</a></li>
+		<% end %>
+	</ul>
+</span>
+<% end %>

@@ -6,4 +6,9 @@ class Tag < Sequel::Model
     return false if super == false
     self.name = self.name.downcase.gsub(" ", "-")
   end
+  
+  def to_s
+    self.name.gsub("-"," ")
+  end
+  
 end

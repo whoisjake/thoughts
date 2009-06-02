@@ -1,4 +1,5 @@
 <div id="content" class="widecolumn">
+	<h2 class="center">Edit post</h2>
 	<form id="postForm" action="/admin/posts/<%= @post.id %>" method="PUT">
 	  <input type="hidden" name="_method" value="PUT">
 	  <label for="post_title">Title</label>
@@ -12,7 +13,7 @@
 	  <label for="post_title">Tags (comma separated)</label>
 	  <input type="text" name="tags" value="<%= @post.tags.join(",") %>">
 	  <br/><br/>
-	  <input type="submit" value="Create Post"/>
+	  <input type="submit" value="Edit Post"/>
 	</form>
 	<script type="text/javascript" src="/javascripts/wmd/wmd.js"></script>
 </div>

@@ -67,6 +67,9 @@ post '/admin/posts' do
   @post.created_at = Time.now.utc
   @post.publish! if (params["post"]["published"] == "published")
   @post.save
+  
+  #invalidate tags, index, tag list, archive.
+  
   redirect_to '/admin/posts'
 end
 
@@ -76,6 +79,9 @@ put '/admin/posts/:id' do
   halt 404, "Post not found" unless @post
   @post.body = params["post"]["body"]
   @post.save
+  
+  #invalidate tags, index, archive, feeds, tag list, and post.
+  
   redirect_to "#{@post.permalink}"
 end
 
@@ -84,6 +90,9 @@ delete '/admin/posts/:id' do
   @post = Post[params[:id].to_i]
   halt 404, "Post not found" unless @post
   @post.delete
+  
+  #invalidate tags, index, archive, feeds, tag list, and post.
+  
   redirect_to '/admin/posts'
 end
 
@@ -112,6 +121,8 @@ put '/admin/comments/:id' do
   @comment.website = params["comment"]["website"]
   @comment.save
   
+  #invalidate index, archive, feeds, tag list, and post.
+  
   redirect_to "/admin/comments/#{@comment.id}"
 end
 
@@ -120,5 +131,8 @@ delete '/admin/comments/:id' do
   @comment = Comment[params[:id].to_i]
   halt 404, "Comment not found" unless @comment
   @comment.delete
+  
+  #invalidate index, archive, feeds, tag list, and post.
+  
   redirect_to '/admin/comments'
 end

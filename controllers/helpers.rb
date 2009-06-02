@@ -1,5 +1,6 @@
 before do
   @blog = Blog.default unless request_for_static?
+  @archives = [] unless request_for_static?
   
   new_params = {}
   params.each_pair do |full_key, value|
