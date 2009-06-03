@@ -25,16 +25,32 @@ not_found do
 end
 
 helpers do
-  
-  def cache_dir
-    cache_dir = (options.cache_output_dir == File.expand_path(options.cache_output_dir)) ? 
-        options.cache_output_dir : File.expand_path("#{options.public}/#{options.cache_output_dir}")
-    cache_dir = cache_output_dir[0..-2] if cache_dir[-1,1] == '/'
+    
+  def clear_entire_cache
+    begin
+      cache_dir = (options.cache_output_dir == File.expand_path(options.cache_output_dir)) ? 
+          options.cache_output_dir : File.expand_path("#{options.public}/#{options.cache_output_dir}")
+      cache_dir = cache_output_dir[0..-2] if cache_dir[-1,1] == '/'
+      
+      FileUtils.rm_r(File.join(cache_dir))
+    rescue Exception => e
+      options.logger.info "Cache Clear Error: #{e.inspect}" if options.logger
+    end
   end
   
-  def clear_entire_cache
-    # top level folders: /permalink format, /tags, /0000, /index.html, /rss.html, /comments
-    
+  def clear_post_cache(post)
+    cache_expire(post.permalink)
+    cache_expire("/")
+    cache_expire("/#{post.published_at.year}/#{post.published_at.month}/#{post.published_at.day}")
+    cache_expire("/#{post.published_at.year}/0#{post.published_at.month}/#{post.published_at.day}")
+    cache_expire("/#{post.published_at.year}/0#{post.published_at.month}/0#{post.published_at.day}")
+    cache_expire("/#{post.published_at.year}/#{post.published_at.month}")
+    cache_expire("/#{post.published_at.year}/0#{post.published_at.month}")
+    cache_expire("/#{post.published_at.year}")
+    cache_expire("/rss")
+    post.tags.each do |tag|
+      cache_expire("/tags" + tag)
+    end
   end
   
   def mobile?

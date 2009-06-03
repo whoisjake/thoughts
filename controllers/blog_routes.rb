@@ -1,7 +1,7 @@
 get '/rss' do
   @posts = Post.filter(:published => true).order(:published_at.desc).limit(15)
   content_type 'application/xml', :charset => 'utf-8'
-  feed = builder do |xml|
+  builder do |xml|
     xml.instruct! :xml, :version => '1.0'
     xml.rss :version => "2.0" do
       xml.channel do
@@ -22,13 +22,12 @@ get '/rss' do
       end
     end
   end
-  cache(feed)
 end
 
 get '/comments/rss' do
   @comments = Comment.filter(:published => true).order(:created_at.desc).limit(15)
   content_type 'application/xml', :charset => 'utf-8'
-  feed = builder do |xml|
+  builder do |xml|
     xml.instruct! :xml, :version => '1.0'
     xml.rss :version => "2.0" do
       xml.channel do
@@ -49,7 +48,6 @@ get '/comments/rss' do
       end
     end
   end
-  cache(feed)
 end
 
 get '/' do
@@ -99,7 +97,7 @@ get %r{\A\/([0-9]{4})\/([0-9]{1,2})\/?\z} do
 end
 
 
-get %r{\A\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{2})\/?\z} do
+get %r{\A\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})\/?\z} do
   @posts = filter_posts_by_date(params[:captures])
   @message = "Posts created on #{params[:captures][1]}/#{params[:captures][2]}/#{params[:captures][0]}"
   cache(erb(:archive))
@@ -114,7 +112,7 @@ post '*/comments' do
   @comment.created_at = Time.now.utc
   @comment.save
   
-  #expire index, post
+  clear_post_cache(@post)
   
   redirect_to "#{@post.permalink}"
 end
