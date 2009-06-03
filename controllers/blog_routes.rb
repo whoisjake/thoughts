@@ -59,6 +59,15 @@ end
 
 get '/tags' do
   @tags = Tag.all
+  @taggings = Tagging.all
+  
+  @tag_map = {}
+  @taggings.each do |tagging|
+    count = @tag_map[tagging.tag_id] || 0
+    count += 1
+    @tag_map[tagging.tag_id] = count
+  end
+  
   cache(erb(:tags))
 end
 
@@ -105,7 +114,7 @@ post '*/comments' do
   @comment.created_at = Time.now.utc
   @comment.save
   
-  cache_expire(@post.permalink)
+  #expire index, post
   
   redirect_to "#{@post.permalink}"
 end

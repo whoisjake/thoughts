@@ -1,3 +1,11 @@
 <div id="content" class="narrowcolumn">
-	<%= erb(:tag_list, :layout => false) %>
+	<div id="tagcloud" style="position: relative; width: 400px; height: 400px;"></div>
+	<script src="/javascripts/tag_cloud.js"></script>
+	<script>
+		var tagcloud = new TagCloud(document.getElementById('tagcloud'),'random',[{r:255,g:255,b:0},{r:0,g:0,b:255},{r:0,g:255,b:0}],null,"/tags/");
+		<% @tags.each do |tag| %>
+		tagcloud.addNode(new Node('<%= tag.name %>',<%= @tag_map[tag.id] %>));
+		<% end %>
+		tagcloud.draw();
+	</script>
 </div>

@@ -38,6 +38,12 @@ get '/admin' do
   erb :admin, :layout => :admin_layout
 end
 
+get '/admin/cache/clear' do
+  authenticate
+  clear_entire_cache
+  redirect_to '/admin'
+end
+
 get '/admin/posts' do
   authenticate
   # show posts

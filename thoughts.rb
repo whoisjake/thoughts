@@ -44,6 +44,7 @@ configure do
   
   enable :sessions
   set :cache_enabled, true
+  set :cache_output_dir, 'cache'
   use Rack::OpenID
                               
   require "sequel/extensions/pagination"

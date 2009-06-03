@@ -1,3 +1,4 @@
 db/blog.db
 .DS_STORE
 log/*.log
+themes/default/public/cache/*

@@ -26,6 +26,17 @@ end
 
 helpers do
   
+  def cache_dir
+    cache_dir = (options.cache_output_dir == File.expand_path(options.cache_output_dir)) ? 
+        options.cache_output_dir : File.expand_path("#{options.public}/#{options.cache_output_dir}")
+    cache_dir = cache_output_dir[0..-2] if cache_dir[-1,1] == '/'
+  end
+  
+  def clear_entire_cache
+    # top level folders: /permalink format, /tags, /0000, /index.html, /rss.html, /comments
+    
+  end
+  
   def mobile?
     /(iPhone|iPod|BlackBerry|Android|Windows CE|Palm)/.match(request.env["HTTP_USER_AGENT"])
   end
